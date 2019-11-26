@@ -1,3 +1,5 @@
+import string
+
 #1
 def max2(x, y):
     if x > y:
@@ -42,4 +44,56 @@ def isPalindrome(word: str):
 
 #7
 def isSentencePalindrome(stnc: str):
-    
+    newStr = stnc.replace(" ", "")
+    newStr = newStr.translate(str.maketrans("","", string.punctuation))
+    newStr = newStr.lower()
+    if newStr == newStr[::-1]:
+        return True
+    return False
+
+#8
+def generateNChars(n: int, c: str):
+    return n*c
+
+#9
+def evaluateGrade(n: float):
+    if n > 1 or n < 0:
+        return "Error"
+    if n < 0.6:
+        return "F"
+    if n < 0.7:
+        return "D"
+    if n < 0.8:
+        return "C"
+    if n < 0.9:
+        return "B"
+    return "A"
+
+#10
+def calculateGrossPay():
+    hours = float(input("Enter hours: "))
+    rate = float(input("Enter rate: "))
+
+    if hours > 40:
+        print((rate*40 + (hours-40)*rate*1.5))
+    else:
+        print(rate*hours)
+
+#11
+def distanceFromZero(n):
+    try:
+        if n < 0:
+            return n * -1
+        return n
+    except:
+        return "Nope"
+
+#12
+def pigLatin(word: str):
+    newStr = ""
+    for i in range(1,len(word)):
+        newStr = newStr + word[i]
+    newStr = newStr + word[0] + "ay"
+    return newStr.lower()
+
+print(pigLatin("Python"))
