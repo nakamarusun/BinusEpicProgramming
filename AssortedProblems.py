@@ -23,6 +23,9 @@ def isMember(char: str, list: [str]):
             return True
     return False
 
+print(isMember("a", ["c", "b", "d"]))
+print(isMember("d", ["c", "b", "d"]))
+
 #5
 def overlapping(list1: [str], list2: [str]):
     for i in list1:
@@ -30,6 +33,9 @@ def overlapping(list1: [str], list2: [str]):
             if i == j:
                 return True
     return False
+
+print(overlapping(["c", "a", "o"], ["c", "b", "d"]))
+print(overlapping(["z", "a", "o"], ["c", "b", "d"]))
 
 #6
 def histogram(list: [int]):
