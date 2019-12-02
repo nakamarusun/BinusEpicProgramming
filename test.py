@@ -5,6 +5,3 @@ def rot13(s):
     return ''.join( rot_char(c) for c in s )
 
 print(rot13("anjayy mabar"))
-
-ohoi = "abcde"
-print(ohoi[-3])
