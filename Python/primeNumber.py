@@ -7,9 +7,10 @@ def prime(n):
             if (testPrime % i == 0):
                 primeCheck = True
                 break
+            if (testPrime // 2 < i):
+                break
         if primeCheck == False:
             prime.append(testPrime)
-    print(prime)
     return prime[n-1]
 
-print(prime(100000))
+print(prime(5000))
