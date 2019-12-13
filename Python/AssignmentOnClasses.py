@@ -102,7 +102,7 @@ class Account():
             print("Amount exceeded balance !")
         return self.__balance
 
-    def transferTo(self, another , amount: int) -> int:
+    def transferTo(self, another, amount: int) -> int:
         if amount <= self.__balance:
             self.__balance -= amount
             another.credit(amount)
