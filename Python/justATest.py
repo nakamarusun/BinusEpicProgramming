@@ -1,12 +1,26 @@
-import matplotlib.pyplot as plt
+import time
 
-fig5 = plt.figure(constrained_layout=True)
-widths = [2, 2, 1]
-heights = [2, 2, 1]
-spec5 = fig5.add_gridspec(ncols=3, nrows=3, width_ratios=widths,
-                          height_ratios=heights)
-for row in range(3):
-    for col in range(3):
-        ax = fig5.add_subplot(spec5[row, col])
+pokemons = """ audino bagon baltoy banette bidoof braviary bronzor carracosta charmeleon cresselia croagunk darmanitan deino emboar emolga exeggcute
+gabite girafarig gulpin haxorus heatmor heatran ivysaur jellicent jumpluff kangaskhan kricketune landorus ledyba loudred lumineon lunatone machamp
+magnezone mamoswine nosepass petilil pidgeotto pikachu pinsir poliwrath poochyena porygon2 porygonz registeel relicanth remoraid rufflet sableye scolipede
+scrafty seaking sealeo silcoon simisear snivy snorlax spoink starly tirtouga trapinch treecko tyrogue vigoroth vulpix wailord wartortle whismur wingull yamask """
 
-plt.show()
+pokemonsList = pokemons.lower().split()
+
+longestChain = []
+
+def findNextName(curName: str, curChain: [str]):
+    global longestChain
+    for nextName in pokemonsList:
+        if curName[-1] == nextName[0] and nextName not in curChain:
+            if len(curChain + [nextName]) > len(longestChain):
+                longestChain = curChain + [nextName]
+            findNextName(nextName, curChain + [nextName])
+
+startTime = time.time()
+
+for names in pokemonsList:
+    findNextName(names, [names])
+
+print(longestChain)
+print(time.time() - startTime)

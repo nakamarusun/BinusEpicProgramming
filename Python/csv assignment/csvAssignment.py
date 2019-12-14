@@ -126,7 +126,7 @@ intervalPlot = tableFigure.add_subplot(gridSize[1, 2])
     #table configuration
 
 totalPlot.bar(dayStepsData.keys(), stepsTotalDay)
-plt.setp(totalPlot, title="Total steps per day", xticks=np.arange(0,61,5))
+plt.setp(totalPlot, title="Total steps per day", xticks=np.arange(0,61,5),)
 plt.setp(totalPlot.xaxis.get_majorticklabels(), rotation=45, color='g', size='small')
 
 meanPlot.bar(dayStepsData.keys(), stepsMean)
