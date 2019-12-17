@@ -1,11 +1,12 @@
 #1 #####################################################
+import string
 with open("Remarks by Bill Nye.txt", "r", encoding="utf-8") as file:
     curLine = file.readlines()
     file.close()
 
 hapax: {str: bool} = {}
 for lines in curLine:
-    lineArr = lines.translate(str.maketrans(',./<>?;:"[]-=_+)(*&^$#@!”', '                         ')).translate(str.maketrans('1234567890', '          ')).lower().split()
+    lineArr = lines.translate(str.maketrans('','',string.punctuation)).translate(str.maketrans('1234567890', '          ')).lower().split()
     for words in lineArr:
         if words not in hapax:
             hapax[words] = True
@@ -58,14 +59,17 @@ for names in pokemonsList:
     pokemonDictionary[names[0]].append(names)
 
 longestChain = []
+longestCount = 0
 
 def findNextName(curChain: [str]):
     global longestChain
+    global longestCount
     try:
         for wordAlph in pokemonDictionary[curChain[-1][-1]]:
             if wordAlph not in curChain:
-                if len(curChain + [wordAlph]) > len(longestChain):
+                if len(curChain + [wordAlph]) > longestCount:
                     longestChain = curChain + [wordAlph]
+                    longestCount = len(curChain + [wordAlph])
                 findNextName(curChain + [wordAlph])
     except:
         pass
