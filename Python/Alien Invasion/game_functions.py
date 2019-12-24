@@ -1,3 +1,6 @@
+""" custom game functions """
+
+
 import pygame
 import pygame.sprite
 import pygame.event

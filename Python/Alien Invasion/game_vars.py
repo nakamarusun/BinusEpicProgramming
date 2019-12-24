@@ -1,3 +1,7 @@
+""" used to store all game vars
+"""
+
+
 import pygame
 import pygame.display
 import pygame.font

@@ -1,3 +1,7 @@
+""" Used to load all events from SDL, and put it
+inside a list """
+
+
 import pygame
 import pygame.event
 
