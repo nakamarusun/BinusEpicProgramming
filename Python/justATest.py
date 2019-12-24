@@ -7,20 +7,34 @@ scrafty seaking sealeo silcoon simisear snivy snorlax spoink starly tirtouga tra
 
 pokemonsList = pokemons.lower().split()
 
-longestChain = []
+pokemonDictionary = {} # pokemonDictionary: {"d": ["deino", "darmanitan"]}
+for names in pokemonsList:
+    if names[0] not in pokemonDictionary:
+        pokemonDictionary[names[0]] = []
+    pokemonDictionary[names[0]].append(names)
 
-def findNextName(curName: str, curChain: [str]):
+longestChain = []
+longestCount = 0
+
+def findNextName(curChain: [str]):
     global longestChain
-    for nextName in pokemonsList:
-        if curName[-1] == nextName[0] and nextName not in curChain:
-            if len(curChain + [nextName]) > len(longestChain):
-                longestChain = curChain + [nextName]
-            findNextName(nextName, curChain + [nextName])
+    global longestCount
+    try:
+        for wordAlph in pokemonDictionary[curChain[-1][-1]]:
+            if wordAlph not in curChain:
+                if len(curChain + [wordAlph]) > longestCount:
+                    longestChain = curChain + [wordAlph]
+                    longestCount = len(curChain + [wordAlph])
+                print(curChain + [wordAlph])
+                findNextName(curChain + [wordAlph])
+    except:
+        pass
 
 startTime = time.time()
 
 for names in pokemonsList:
-    findNextName(names, [names])
+    findNextName([names])
 
 print(longestChain)
+print("Maximum result: ", len(longestChain))
 print(time.time() - startTime)
