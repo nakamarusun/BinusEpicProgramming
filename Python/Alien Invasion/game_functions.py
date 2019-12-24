@@ -5,9 +5,6 @@ import game_vars as GMvar
 
 from time import time
 
-class ObjectQueue:
-    pass
-
 def showFps(screen, startFrame: float):
     try:
         FPS = "FPS: " + str(1/(time() - startFrame))

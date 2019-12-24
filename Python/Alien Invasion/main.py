@@ -32,7 +32,5 @@ while True:
     # Main draws
 
 
-    # FPS Calc
-    GMfun.showFps(GMvar.screen, startTime)
-
+    GMfun.showFps(GMvar.screen, startTime)  # FPS Calc
     pygame.display.flip()
