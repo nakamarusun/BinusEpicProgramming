@@ -29,9 +29,8 @@ while True:
     # Background draws
     GMvar.screen.blit(GMvar.background.image, GMvar.background.rect)
 
-    # Main draws
+    # Update and draw
 
 
     GMfun.showFps(GMvar.screen, startTime)  # FPS Calc
-
     pygame.display.flip()

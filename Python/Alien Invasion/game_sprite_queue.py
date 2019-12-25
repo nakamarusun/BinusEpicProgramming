@@ -17,3 +17,9 @@ def delFromQueue(object):
 def mainDrawEvent(screen):
     for sprite in drawQueue:
         screen.blit(sprite.image, sprite.rect)
+        try:
+            sprite.update()
+        except NameError:
+            pass
+        except:
+            raise SyntaxError("Failed running {obj_name}'s update function".format(obj_name=sprite) )
