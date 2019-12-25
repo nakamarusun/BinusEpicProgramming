@@ -11,7 +11,7 @@ def addToQueue(object):
 def delFromQueue(object):
     for i in range(len(drawQueue)):
         if object == drawQueue[i]:
-            drawQueue.pop(i)
+            del drawQueue[i]
             break
 
 def mainDrawEvent(screen):

@@ -10,6 +10,8 @@ from sprites import Background
 pygame.init()
 pygame.font.init()
 
-screen = pygame.display.set_mode((800, 600))                    # Main screen
+size = (800, 600)
+
+screen = pygame.display.set_mode(size)                          # Main screen
 defFont = pygame.font.Font(pygame.font.get_default_font(), 12)  # Default debug font
 background = Background("sprites/background.png")               # Background sprite
