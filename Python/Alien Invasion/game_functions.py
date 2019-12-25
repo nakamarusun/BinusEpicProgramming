@@ -15,3 +15,15 @@ def showFps(screen, startFrame: float):
         FPS = "FPS: TOO HIGH"
     fpsText = GMvar.defFont.render(FPS, True, (0,0,0))
     screen.blit(fpsText, (0, 0))
+
+class Timer:
+
+    def __init__(self, milisecond):
+        self.end = time() + milisecond/1000
+
+    def check(self):
+        if time() > self.end:
+            return True
+            del self
+        else:
+            return False

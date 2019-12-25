@@ -32,7 +32,7 @@ while True:
     EVload.loadEvents()         # Pump events and load them into EVload.curEvents list. IS A MUST.
 
     # Background draws
-    GMvar.screen.blit(GMvar.background.image, GMvar.background.rect)
+    GMvar.screen.blit(GMvar.background, (0, 0) )
 
     # Update and draw
     GMque.mainDrawEvent(GMvar.screen)
