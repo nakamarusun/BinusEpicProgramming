@@ -2,7 +2,6 @@
 before they are drawn to the screen """
 
 import pygame.sprite
-import sprites
 
 drawQueue = []
 

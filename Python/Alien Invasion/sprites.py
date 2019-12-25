@@ -6,6 +6,18 @@ import pygame.rect
 import random
 import game_sprite_queue as GMque
 
+class SpriteParent(pygame.sprite.Sprite):
+    
+    def __init__(self, image, coords, drawn):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = coords
+        if drawn: GMque.addToQueue(self)
+    
+    def __del__(self):
+        GMque.delFromQueue(self)
+
 class Background(pygame.sprite.Sprite):
 
     def __init__(self, imageFile):
@@ -14,27 +26,36 @@ class Background(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = (0, 0)
 
-class Fridge(pygame.sprite.Sprite):
+class Fridge(SpriteParent):
 
     def __init__(self, coords):
         self.imageIdle = pygame.image.load("sprites/fridgeClosed.png")
         self.imageAttack = pygame.image.load("sprites/fridgeOpen.png")
-        self.rect = coords
-        GMque.addToQueue(self)
-
-    def __del__(self):
-        GMque.delFromQueue(self)
+        
+        super().__init__(self.imageIdle, coords, True)
 
     def attack(self):
         pass
 
-class Hand(pygame.sprite.Sprite):
+class Hand(SpriteParent):
 
     def __init__(self, coords):
         self.imageGoing = pygame.image.load("sprites/openHand.png")
         self.imageBack = pygame.image.load("sprites/closedHand.png")
-        self.rect = coords
+        
+        super().__init__(self.imageBack, coords, True)
 
-class Fruits(pygame.sprite.Sprite):
+    def going(self):
+        pass
+
+    def back(self):
+        pass
+
+class Fruits(SpriteParent):
 
     fruitsSprites = ("fruits1", "fruits2", "fruits3")
+
+    def __init__(self, coords):
+        self.image = pygame.image.load( "sprites/{sprite}".format(sprite=Fruits.fruitSprites[random.randint(0, 2)]) )
+
+        super().__init__(self.image, coords, True)
