@@ -16,7 +16,8 @@ def delFromQueue(object):
 
 def mainDrawEvent(screen):
     for sprite in drawQueue:
-        screen.blit(sprite.image, sprite.rect)
+        if sprite.image != None:
+            screen.blit(sprite.image, sprite.rect)
         try:
             sprite.update()
         except NameError:

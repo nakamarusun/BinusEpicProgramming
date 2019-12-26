@@ -4,6 +4,7 @@
 import pygame
 import pygame.sprite
 import pygame.event
+import pygame.time
 import game_vars as GMvar
 
 from time import time
@@ -16,8 +17,11 @@ def showFps(screen, startFrame: float):
     fpsText = GMvar.defFont.render(FPS, True, (0,0,0))
     screen.blit(fpsText, (0, 0))
 
-class Timer:
+def deltaTiming(fps: int, startFrame: float):
+    frameDur = 1/fps
+    pygame.time.delay( int((frameDur - (time()-startFrame)) * 1000) )
 
+class Timer:
     def __init__(self, milisecond):
         self.end = time() + milisecond/1000
 

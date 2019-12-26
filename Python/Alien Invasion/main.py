@@ -38,4 +38,5 @@ while True:
     GMque.mainDrawEvent(GMvar.screen)
     
     GMfun.showFps(GMvar.screen, startTime)  # FPS Calc
+    GMfun.deltaTiming(60, startTime)        # Delta timing
     pygame.display.flip()

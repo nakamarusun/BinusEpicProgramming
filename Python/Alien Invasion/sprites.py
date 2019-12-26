@@ -4,6 +4,7 @@ import pygame.sprite
 import pygame.image
 import pygame.rect
 import pygame.key
+import pygame.draw
 import random
 import math
 
@@ -13,7 +14,7 @@ import game_functions as GMfun
 
 class SpriteParent(pygame.sprite.Sprite):
     
-    def __init__(self, image, coords, drawn):
+    def __init__(self, image=None, coords=(0, 0), drawn=True):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
         self.rect = self.image.get_rect()
@@ -39,9 +40,9 @@ class Fridge(SpriteParent):
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and self.rect.left > 0:
-            self.rect.left -= 1
+            self.rect.left -= 5
         if keys[pygame.K_RIGHT] and self.rect.left < 800 - 78:
-            self.rect.left += 1
+            self.rect.left += 5
         if keys[pygame.K_SPACE]:
             self.image = self.imageAttack
 
@@ -83,7 +84,7 @@ class Hand(SpriteParent):
 
     def update(self):
         if self.going:
-            self.rect.top -= 2
+            self.rect.top -= 8
             if self.rect.top + self.rect.height < 0:
                 self.deleteSelf()
 
@@ -97,10 +98,10 @@ class Hand(SpriteParent):
             for sprite in GMque.drawQueue:
                 if sprite.__class__.__name__ == "Fridge":
                     deltay = self.rect.top - sprite.rect.top
-                    deltax = self.rect.left - sprite.rect.left
+                    deltax = self.rect.left - sprite.rect.left + 40
                     direction = math.atan2(deltay, deltax)
-                    self.rect.top += 2 * -math.sin(direction)
-                    self.rect.left += 2 * -math.cos(direction)
+                    self.rect.top += 6 * -math.sin(direction)
+                    self.rect.left += 6 * -math.cos(direction)
                     if self.rect.top > 400:
                         self.deleteSelf()
 
@@ -110,7 +111,7 @@ class Fruits(SpriteParent):
 
     def __init__(self, coords):
         self.image = pygame.image.load( "sprites/{sprite}.png".format(sprite=Fruits.fruitsSprites[random.randint(0, 2)]) )
-        self.speed = random.randint(1,2)
+        self.speed = random.randint(4,7)
 
         super().__init__(self.image, coords, True)
 
@@ -119,3 +120,9 @@ class Fruits(SpriteParent):
         if self.rect.left < 0 or self.rect.left + self.rect.width > 800:
             self.speed *= -1
             self.rect.top += 30
+
+class FruitsBullets(SpriteParent):
+    
+    def __init__(self, coords, surface):
+        self.rect = pygame.draw.circle(surface, (0, 0, 0), (0, 0), 3)
+        super().__init__(None, coords, True)
