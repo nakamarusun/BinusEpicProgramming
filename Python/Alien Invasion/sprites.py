@@ -40,6 +40,7 @@ class Fridge(SpriteParent):
         self.timerFruit = None
         
         super().__init__(self.imageIdle, coords, True)
+        self.rect.width = 77
 
     def update(self):
         keys = pygame.key.get_pressed()
@@ -76,6 +77,12 @@ class Fridge(SpriteParent):
                     
                     if handCount < 3:
                         Hand( ((self.rect.left + (self.rect.width / 2)) - 110, (self.rect.top + (self.rect.height / 2)) - 123) )
+
+        # Check collision with enemy bullet
+        for sprite in GMque.drawQueue:
+            if sprite.__class__.__name__ == "FruitsBullets":
+                if pygame.sprite.collide_rect(self, sprite):
+                    GMfun.gameOver()
 
 class Hand(SpriteParent):
 
@@ -115,7 +122,8 @@ class Fruits(SpriteParent):
 
     def __init__(self, coords):
         self.image = pygame.image.load( "sprites/{sprite}.png".format(sprite=Fruits.fruitsSprites[random.randint(0, 2)]) )
-        self.speed = random.randint(4,7)
+        self.speed = random.randint(3,6)
+        self.shootTimer = None
 
         super().__init__(self.image, coords, True)
 
@@ -125,14 +133,21 @@ class Fruits(SpriteParent):
             self.speed *= -1
             self.rect.top += 30
 
+        if self.shootTimer == None:
+            self.shootTimer = GMfun.Timer(random.randint(2000, 3000))
+        else:
+            if self.shootTimer.check():
+                FruitsBullets((self.rect.left, self.rect.top))
+                self.shootTimer = None
+
 class FruitsBullets(SpriteParent):
     
     def __init__(self, coords):
         super().__init__(None, coords, True)
-        print("JOJO")
+        self.rect.width, self.rect.height = (5, 5)
 
     def update(self):
-        pygame.draw.circle(GMvar.screen, (0, 0, 0), (self.rect.left, self.rect.top), 5)  # ERROR CODE
+        pygame.draw.circle(GMvar.screen, (0, 0, 0), (self.rect.left, self.rect.top), 5)
         self.rect.top += 5
         if self.rect.top > 600:
             self.deleteSelf()
