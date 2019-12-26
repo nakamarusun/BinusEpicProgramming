@@ -5,6 +5,7 @@ import pygame.image
 import pygame.rect
 import pygame.key
 import pygame.draw
+import pygame.font
 import random
 import math
 
@@ -42,6 +43,10 @@ class Fridge(SpriteParent):
         super().__init__(self.imageIdle, coords, True)
         self.rect.width = 77
 
+        # Make scoreboard
+        self.font = pygame.font.Font(pygame.font.get_default_font(), 16)
+        self.score = 0
+
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and self.rect.left > 0:
@@ -50,6 +55,10 @@ class Fridge(SpriteParent):
             self.rect.left += 5
         if keys[pygame.K_SPACE]:
             self.image = self.imageAttack
+
+        # Update score
+        curScore = self.font.render( "Score: {}".format(str(self.score)), True, (0,0,0) )
+        GMvar.screen.blit(curScore, (720, 20))
 
         # Timer to create fruits
         if self.timerFruit == None:
@@ -102,6 +111,7 @@ class Hand(SpriteParent):
             for sprite in GMque.drawQueue:
                 if sprite.__class__.__name__ == "Fruits":
                     if pygame.sprite.collide_rect(self, sprite):
+                        GMque.drawQueue[0].score += 1
                         sprite.deleteSelf()
                         self.going = False
         else:

@@ -37,11 +37,11 @@ def deltaTiming(fps: int, startFrame: float):
         pygame.time.delay( delay )
 
 def gameOver():
-    pygame.font.init()
-    gameOverFont = pygame.font.Font(pygame.font.get_default_font(), 64)
-    overText = gameOverFont.render("GAME OVER", True, (0,0,0))
+    overText = pygame.font.Font(pygame.font.get_default_font(), 64).render("GAME OVER", True, (0,0,0))
+    overScreen = pygame.font.Font(pygame.font.get_default_font(), 24).render( "Score: {}".format(str(GMque.drawQueue[0].score)) , True, (0,0,0))
     GMque.drawQueue = []
-    Blitter(overText, (300, 280))
+    Blitter(overText, (180, 280))
+    Blitter(overScreen, (330, 340))
 
 class Timer:
     def __init__(self, milisecond):
