@@ -11,13 +11,17 @@ import math
 import game_sprite_queue as GMque
 import event_loader as EVload
 import game_functions as GMfun
+import game_vars as GMvar
 
 class SpriteParent(pygame.sprite.Sprite):
     
     def __init__(self, image=None, coords=(0, 0), drawn=True):
         pygame.sprite.Sprite.__init__(self)
         self.image = image
-        self.rect = self.image.get_rect()
+        if self.image != None:
+            self.rect = self.image.get_rect()
+        else:
+            self.rect = pygame.Rect(0, 0, 0, 0)
         self.rect.left, self.rect.top = coords
         if drawn: GMque.addToQueue(self)
     
@@ -123,6 +127,12 @@ class Fruits(SpriteParent):
 
 class FruitsBullets(SpriteParent):
     
-    def __init__(self, coords, surface):
-        self.rect = pygame.draw.circle(surface, (0, 0, 0), (0, 0), 3)
+    def __init__(self, coords):
         super().__init__(None, coords, True)
+        print("JOJO")
+
+    def update(self):
+        pygame.draw.circle(GMvar.screen, (0, 0, 0), (self.rect.left, self.rect.top), 5)  # ERROR CODE
+        self.rect.top += 5
+        if self.rect.top > 600:
+            self.deleteSelf()

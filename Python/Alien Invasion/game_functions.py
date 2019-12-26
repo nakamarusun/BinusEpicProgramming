@@ -19,7 +19,9 @@ def showFps(screen, startFrame: float):
 
 def deltaTiming(fps: int, startFrame: float):
     frameDur = 1/fps
-    pygame.time.delay( int((frameDur - (time()-startFrame)) * 1000) )
+    delay = int((frameDur - (time()-startFrame)) * 1000)
+    if delay > 0:
+        pygame.time.delay( delay )
 
 class Timer:
     def __init__(self, milisecond):
