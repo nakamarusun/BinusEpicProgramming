@@ -62,7 +62,7 @@ class Fridge(SpriteParent):
 
         # Timer to create fruits
         if self.timerFruit == None:
-            self.timerFruit = GMfun.Timer(random.randint(1000, 6000))
+            self.timerFruit = GMfun.Timer(random.randint(500, 2500))
         else:
             if self.timerFruit.check():
                 Fruits( (random.randint(0, 700), 20) )
@@ -101,10 +101,11 @@ class Hand(SpriteParent):
         self.going = True
         
         super().__init__(self.imageGoing, coords, True)
+        self.rect.width, self.rect.height = (72, 62)
 
     def update(self):
         if self.going:
-            self.rect.top -= 8
+            self.rect.top -= 10
             if self.rect.top + self.rect.height < 0:
                 self.deleteSelf()
 
@@ -144,11 +145,17 @@ class Fruits(SpriteParent):
             self.rect.top += 30
 
         if self.shootTimer == None:
-            self.shootTimer = GMfun.Timer(random.randint(2000, 3000))
+            self.shootTimer = GMfun.Timer(random.randint(1200, 3000))
         else:
             if self.shootTimer.check():
                 FruitsBullets((self.rect.left, self.rect.top))
                 self.shootTimer = None
+        
+        try:
+            if pygame.sprite.collide_rect(self, GMque.drawQueue[0]):
+                GMfun.gameOver()
+        except:
+            pass
 
 class FruitsBullets(SpriteParent):
     

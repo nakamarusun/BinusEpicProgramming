@@ -16,7 +16,6 @@ import game_functions as GMfun
 import game_vars as GMvar
 import game_sprite_queue as GMque
 
-
 # Inits
 pygame.init()
 pygame.font.init()
