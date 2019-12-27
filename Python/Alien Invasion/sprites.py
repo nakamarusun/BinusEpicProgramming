@@ -39,6 +39,7 @@ class Fridge(SpriteParent):
         self.imageIdle = pygame.image.load("sprites/fridgeClosed.png")
         self.imageAttack = pygame.image.load("sprites/fridgeOpen.png")
         self.timerFruit = None
+        self.spawnRate = 1200.0
         
         super().__init__(self.imageIdle, coords, True)
         self.rect.width = 77
@@ -56,13 +57,16 @@ class Fridge(SpriteParent):
         if keys[pygame.K_SPACE]:
             self.image = self.imageAttack
 
+        if self.spawnRate > 100:
+            self.spawnRate -= 0.2
+
         # Update score
         curScore = self.font.render( "Score: {}".format(str(self.score)), True, (0,0,0) )
         GMvar.screen.blit(curScore, (720, 20))
 
         # Timer to create fruits
         if self.timerFruit == None:
-            self.timerFruit = GMfun.Timer(random.randint(500, 2500))
+            self.timerFruit = GMfun.Timer(random.randint(round(self.spawnRate), round(self.spawnRate*3)))
         else:
             if self.timerFruit.check():
                 Fruits( (random.randint(0, 700), 20) )
